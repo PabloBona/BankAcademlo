@@ -8,40 +8,16 @@ exports.transferAmount = async (req, res) => {
     // 2. Buscar al usuario receptor en la base de datos
     const userReceiver = await Transfer.findOne({
       where: {
-        accountNumber,
         status: true,
+        accountNumber,
       },
-    }).catch(error => {
-      console.error(`Error finding receiver user: ${error}`);
-      return res.status(500).json({
-        status: 'failed',
-        message: 'Internal Server Error',
-      });
     });
-
+    console.log(userReceiver);
+    // 3. Verificar si el usuario receptor existe
     if (!userReceiver) {
       console.error(
         `Receiver user not found for account number: ${accountNumber}`
       );
-      return res.status(404).json({
-        status: 'failed',
-        message: 'Receiver user not found',
-      });
-    }
-
-    try {
-      // rest of the code here
-    } catch (error) {
-      return res.status(500).json({
-        status: 'failed',
-        message: 'Internal Server Error',
-      });
-    }
-
-    console.log(accountNumber);
-
-    // 3. Verificar si el usuario receptor existe
-    if (!userReceiver) {
       return res.status(404).json({
         status: 'failed',
         message: 'Receiver user not found',
@@ -104,7 +80,7 @@ exports.transferAmount = async (req, res) => {
       newTransfer,
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     return res.status(500).json({
       status: 'failed',
       message: 'Internal Server Error',
