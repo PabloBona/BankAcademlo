@@ -34,14 +34,6 @@ const User = db.define('user', {
     allowNull: false,
     defaultValue: true,
   },
-  // senderUserId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  // },
-  // receiverUserId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: true,
-  // },
 });
 
 module.exports = User;

@@ -4,7 +4,9 @@ const findUsers = async (req, res) => {
   try {
     // 1. BUSCAR TODOS LOS USUARIOS QUE ESTAN CON STATUS TRUE
     const users = await User.findAll({
-      where: {},
+      where: {
+        status: true,
+      },
     });
     if (!users) {
       return res.status(404).json({
