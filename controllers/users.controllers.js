@@ -1,3 +1,4 @@
+const Transfer = require('../models/transfer.models');
 const User = require('../models/user.model');
 
 const findUsers = async (req, res) => {
@@ -110,31 +111,30 @@ const login = async (req, res = response) => {
 };
 
 const getHistory = async (req, res) => {
-  // try {
-  //   const { userId } = req.params;
-  //   const loginHistory = await LoginHistory.findAll({
-  //     where: {
-  //       id: userId,
-  //     },
-  //     order: [['login_time', 'DESC']],
-  //   });
-  //   if (!loginHistory) {
-  //     return res.status(404).json({
-  //       status: 'fail',
-  //       message:
-  //         'No se encontraron entradas en el historial de inicio de sesión.',
-  //     });
-  //   }
-  //   res.status(200).json({
-  //     status: 'success',
-  //     data: loginHistory,
-  //   });
-  // } catch (error) {
-  //   res.status(500).json({
-  //     status: 'fail',
-  //     message: 'Error del servidor interno.',
-  //   });
-  // }
+  try {
+    const { id } = req.params;
+    const transferHistory = await Transfer.findAll({
+      where: {
+        senderUserId: id,
+      },
+      order: [['id', 'DESC']],
+    });
+    if (!transferHistory) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No entries found in transfer history',
+      });
+    }
+    res.status(200).json({
+      status: 'success',
+      data: transferHistory,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: 'Server error',
+    });
+  }
 };
 module.exports = {
   findUsers,

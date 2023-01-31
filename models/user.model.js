@@ -27,7 +27,6 @@ const User = db.define('user', {
   accountNumber: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 1000,
   },
   status: {
     type: DataTypes.BOOLEAN,

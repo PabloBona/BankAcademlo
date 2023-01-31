@@ -1,4 +1,5 @@
 const Transfer = require('../models/transfer.models');
+const User = require('../models/user.model');
 
 exports.transferAmount = async (req, res) => {
   try {
@@ -6,14 +7,13 @@ exports.transferAmount = async (req, res) => {
     const { amount, accountNumber, senderUserId } = req.body;
 
     // 2. Buscar al usuario receptor en la base de datos
-    const userReceiver = await Transfer.findOne({
+    const userReceiver = await User.findOne({
       where: {
         status: true,
-        senderUserId,
+        accountNumber,
       },
     });
 
-    console.log(userReceiver);
     // 3. Verificar si el usuario receptor existe
     if (!userReceiver) {
       console.error(
@@ -26,7 +26,7 @@ exports.transferAmount = async (req, res) => {
     }
 
     // 4. Buscar al usuario remitente en la base de datos
-    const userSender = await Transfer.findOne({
+    const userSender = await User.findOne({
       where: {
         status: true,
         id: senderUserId,
@@ -73,7 +73,7 @@ exports.transferAmount = async (req, res) => {
       receiverUserId: userReceiver.id,
       amount,
     };
-    await Transfer.create({ amount, senderUserId, receiverUserId });
+    await Transfer.create(newTransfer);
     // 10. Devolver una respuesta de éxito al cliente
     res.status(201).json({
       status: 'success',

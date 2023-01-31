@@ -12,11 +12,9 @@ const Transfer = db.define('transfer', {
   amount: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 1000,
   },
-  accountNumber: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+
   senderUserId: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -24,11 +22,6 @@ const Transfer = db.define('transfer', {
   receiverUserId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  status: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
   },
 });
 
