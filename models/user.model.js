@@ -16,6 +16,10 @@ const User = db.define('user', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  // senderUserId: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
   password: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -32,7 +36,7 @@ const User = db.define('user', {
   },
   // senderUserId: {
   //   type: DataTypes.INTEGER,
-  //   allowNull: true,
+  //   allowNull: false,
   // },
   // receiverUserId: {
   //   type: DataTypes.INTEGER,

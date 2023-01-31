@@ -53,7 +53,7 @@ const findUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.parent);
     return res.status(500).json({
       status: 'fail',
       message: 'Internal server error',

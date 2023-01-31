@@ -4,6 +4,7 @@ const { usersRouter } = require('../routes/user.routes');
 const { db } = require('../database/db');
 
 const { transferRouter } = require('../routes/transfer.routes');
+const globalErrorHandler = require('../controllers/error.controller');
 //1. CREAMOS UNA CLASE
 
 class Server {
@@ -44,6 +45,13 @@ class Server {
     //utilizar las rutas de usuarios
     this.app.use(this.paths.user, usersRouter);
     this.app.use(this.paths.transfer, transferRouter);
+    // this.app.all('*', (req, res, next) => {
+    //   res.status(404).json({
+    //     status: 'error',
+    //     message: `Can't find ${req.originalUrl} on this server!`,
+    //   });
+    // });
+    // this.app.use(globalErrorHandler);
   }
 
   database() {
